@@ -303,70 +303,21 @@ export default function App() {
 }
 
 function ContactForm() {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    message: ''
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setFormData({ username: '', email: '', message: '' });
-      } else {
-        setStatus('error');
-      }
-    } catch (error) {
-      console.error('Submission error:', error);
-      setStatus('error');
-    }
-  };
-
-  if (status === 'success') {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-navy-bg border border-navy-pale p-8 rounded-md text-center"
-      >
-        <h3 className="text-navy font-medium mb-2">送信完了いたしました</h3>
-        <p className="text-xs text-navy-mid leading-relaxed">
-          お問い合わせありがとうございます。内容を確認次第、担当者よりご連絡させていただきます。
-        </p>
-        <button 
-          onClick={() => setStatus('idle')}
-          className="mt-6 text-xs text-navy-light underline hover:text-navy"
-        >
-          フォームに戻る
-        </button>
-      </motion.div>
-    );
-  }
-
+  // fetch処理やstatus管理を削除し、PHPへ直接遷移させるシンプルな構成にします
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+    <form 
+      action="contact.php" 
+      method="POST" 
+      className="flex flex-col gap-3"
+    >
       <div className="flex flex-col gap-1.5">
         <label className="text-[11px] text-navy-light tracking-wider">お名前・会社名</label>
         <input 
           type="text" 
           name="username"
-          value={formData.username}
-          onChange={(e) => setFormData({ ...formData, username: e.target.value })}
           placeholder="山田 太郎 / 株式会社〇〇" 
           className="w-full text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors"
           required
-          disabled={status === 'loading'}
         />
       </div>
       <div className="flex flex-col gap-1.5">
@@ -374,36 +325,26 @@ function ContactForm() {
         <input 
           type="email" 
           name="email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           placeholder="your@email.com" 
           className="w-full text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors"
           required
-          disabled={status === 'loading'}
         />
       </div>
       <div className="flex flex-col gap-1.5">
         <label className="text-[11px] text-navy-light tracking-wider">ご相談内容</label>
         <textarea 
           name="message"
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="コンテンツ制作のご依頼、戦略設計のご相談など…" 
           className="w-full h-24 text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors resize-none"
           required
-          disabled={status === 'loading'}
         />
       </div>
       <button 
         type="submit" 
-        disabled={status === 'loading'}
-        className="w-full mt-1 px-6 py-3 text-[13px] bg-navy text-white rounded-md hover:bg-navy-mid transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full mt-1 px-6 py-3 text-[13px] bg-navy text-white rounded-md hover:bg-navy-mid transition-colors cursor-pointer"
       >
-        {status === 'loading' ? '送信中...' : '送信する'}
+        送信する
       </button>
-      {status === 'error' && (
-        <p className="text-[11px] text-red-500 mt-1">送信に失敗しました。時間をおいて再度お試しください。</p>
-      )}
     </form>
   );
 }
