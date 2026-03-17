@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-navy: #2d3f52;
+  --color-navy-mid: #3d5168;
+  --color-navy-light: #5a7494;
+  --color-navy-pale: #c8d4e0;
+  --color-navy-bg: #f0f4f7;
+  --color-text: #1a2530;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans text-text antialiased;
+  }
+}
