@@ -289,40 +289,43 @@ export default function App() {
               </a>
             </div>
             <div>
-              <form className="flex flex-col gap-3">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] text-navy-light tracking-wider">お名前・会社名</label>
-                  <input 
-                    type="text" 
-                    placeholder="山田 太郎 / 株式会社〇〇" 
-                    className="w-full text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] text-navy-light tracking-wider">メールアドレス</label>
-                  <input 
-                    type="email" 
-                    placeholder="your@email.com" 
-                    className="w-full text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors"
-                    required
-                  />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[11px] text-navy-light tracking-wider">ご相談内容</label>
-                  <textarea 
-                    placeholder="コンテンツ制作のご依頼、戦略設計のご相談など…" 
-                    className="w-full h-24 text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors resize-none"
-                    required
-                  />
-                </div>
-                <button 
-                  type="submit" 
-                  className="w-full mt-1 px-6 py-3 text-[13px] bg-navy text-white rounded-md hover:bg-navy-mid transition-colors cursor-pointer"
-                >
-                  送信する
-                </button>
-              </form>
+<form action="contact.php" method="post" className="flex flex-col gap-3">
+  <div className="flex flex-col gap-1.5">
+    <label className="text-[11px] text-navy-light tracking-wider">お名前・会社名</label>
+    <input 
+      type="text" 
+      name="username" // PHPで受け取るための名前を追加
+      placeholder="山田 太郎 / 株式会社〇〇" 
+      className="w-full text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors"
+      required
+    />
+  </div>
+  <div className="flex flex-col gap-1.5">
+    <label className="text-[11px] text-navy-light tracking-wider">メールアドレス</label>
+    <input 
+      type="email" 
+      name="email" // PHPで受け取るための名前を追加
+      placeholder="your@email.com" 
+      className="w-full text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors"
+      required
+    />
+  </div>
+  <div className="flex flex-col gap-1.5">
+    <label className="text-[11px] text-navy-light tracking-wider">ご相談内容</label>
+    <textarea 
+      name="message" // PHPで受け取るための名前を追加
+      placeholder="コンテンツ制作のご依頼、戦略設計のご相談など…" 
+      className="w-full h-24 text-[13px] px-3 py-2.5 border border-navy-pale rounded-md bg-white text-navy outline-none focus:border-navy-light transition-colors resize-none"
+      required
+    />
+  </div>
+  <button 
+    type="submit" 
+    className="w-full mt-1 px-6 py-3 text-[13px] bg-navy text-white rounded-md hover:bg-navy-mid transition-colors cursor-pointer"
+  >
+    送信する
+  </button>
+</form>
             </div>
           </div>
         </section>
